@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { View } from 'react-native';
 import Animated, { FadeInUp, FadeOutDown, LayoutAnimationConfig } from 'react-native-reanimated';
-import { Info } from '~/lib/icons/Info';
-import { Avatar, AvatarFallback, AvatarImage } from '~/components/ui/avatar';
-import { Button } from '~/components/ui/button';
+import { Info } from '@/lib/icons/Info';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Button } from '@/components/ui/button';
 import {
   Card,
   CardContent,
@@ -11,17 +11,18 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from '~/components/ui/card';
-import { Progress } from '~/components/ui/progress';
-import { Text } from '~/components/ui/text';
-import { Tooltip, TooltipContent, TooltipTrigger } from '~/components/ui/tooltip';
+} from '@/components/ui/card';
+import { Progress } from '@/components/ui/progress';
+import { Text } from '@/components/ui/text';
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
+import useStore from '@/stores/useStore';
 
 const GITHUB_AVATAR_URI =
-  'https://i.pinimg.com/originals/ef/a2/8d/efa28d18a04e7fa40ed49eeb0ab660db.jpg';
+  'https://img.freepik.com/premium-vector/avatar-profile-icon-flat-style-male-user-profile-vector-illustration-isolated-background-man-profile-sign-business-concept_157943-38764.jpg?semt=ais_hybrid';
 
 export default function Screen() {
   const [progress, setProgress] = React.useState(78);
-
+  const { count, inc } = useStore()
   function updateProgressValue() {
     setProgress(Math.floor(Math.random() * 100));
   }
@@ -32,11 +33,11 @@ export default function Screen() {
           <Avatar alt="Rick Sanchez's Avatar" className='w-24 h-24'>
             <AvatarImage source={{ uri: GITHUB_AVATAR_URI }} />
             <AvatarFallback>
-              <Text>RS</Text>
+              <Text>UR</Text>
             </AvatarFallback>
           </Avatar>
           <View className='p-3' />
-          <CardTitle className='pb-2 text-center'>Rick Sanchez</CardTitle>
+          <CardTitle className='pb-2 text-center'>User Rick</CardTitle>
           <View className='flex-row'>
             <CardDescription className='text-base font-semibold'>Scientist</CardDescription>
             <Tooltip delayDuration={150}>
@@ -85,8 +86,16 @@ export default function Screen() {
             variant='outline'
             className='shadow shadow-foreground/5'
             onPress={updateProgressValue}
-          >
+            >
             <Text>Update</Text>
+          </Button>
+          <Button 
+            variant='outline'
+            className='shadow shadow-foreground/5'
+            
+            onPress={inc}
+          >
+            <Text>Press Me to inc {count}</Text>
           </Button>
         </CardFooter>
       </Card>
